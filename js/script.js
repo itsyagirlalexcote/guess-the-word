@@ -19,6 +19,9 @@ const playAgainButton = document.querySelector(".play-again");
 // Variable for starting word to test out the game:
 const word = "magnolia";
 
+// Variable containing all the letters players guessed
+const guessedLetters = [];
+
 // Display placeholders for each letter of the chosen word:
 const placeholder = function (word) {
     const placeholderLetters = [];
@@ -32,8 +35,44 @@ const placeholder = function (word) {
 placeholder(word);
 
 guessLetterButton.addEventListener("click", function (e) {
-    e.preventDefault(); // to prevent the page from reloading after the form submitting/clicking the button
-    const guess = letterInput.value;
-    console.log(guess);
+    // to prevent the page from reloading after the form submitting/clicking the button
+    e.preventDefault();
+    // empty message paragraph
+    message.innerText = "";
+    // Take what was entered in the input
+    const guess = letterInput.value; 
+    // Make sure it's a single letter
+    const goodGuess = validateInput(guess);
+
+    if (goodGuess) {
+        makeGuess(guess);
+    }
     letterInput.value = "";
 });
+
+const validateInput = function (input) {
+    const acceptedLetter = /[a-zA-Z]/;
+    if (input.length === 0) {
+        // Is the input empty?
+        message.innerText = "Please enter a letter.";
+    } else if (input.length > 1) {
+        // Did you type more than one letter?
+        message.innerText = "Please enter a single letter.";
+    } else if (!input.match(acceptedLetter)) {
+        // Did you type a number, a special character or some other non letter thing?
+        message.innerText = "Please enter a letter from A to Z.";
+    } else {
+        // Message for when we get a single letter
+        return input;
+    }
+};
+
+const makeGuess = function (guess) {
+    guess = guess.toUpperCase();
+    if (guessedLetters.includes(guess)) {
+        message.innerText = "You already guessed that letter, please try again.";
+    } else {
+        guessedLetters.push(guess);
+        console.log(guessedLetters);
+    }
+};
