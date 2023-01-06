@@ -147,3 +147,21 @@ const startOver = function () {
     guessedLettersElement.classList.add("hide");
     playAgainButton.classList.remove("hide");
 };
+
+playAgainButton.addEventListener("click", function () {
+    // reset all original values - grab new word
+    message.classList.remove("win");
+    message.innerText = "";
+    guessedLettersElement.innerHTML = "";
+    remainingGuesses = 8;
+    guessedLetters.letter = [];
+    remainingGuessesSpan.innerText = `${remainingGuesses} guesses`;
+    // Grab a new word
+    getWord();
+
+    // show the right UI elements
+    guessLetterButton.classList.remove("hide");
+    remainingGuessesElement.classList.remove("hide");
+    guessedLettersElement.classList.remove("hide");
+    playAgainButton.classList.add("hide");
+});
