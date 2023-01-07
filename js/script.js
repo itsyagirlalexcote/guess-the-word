@@ -132,7 +132,7 @@ const updateRemainingGuesses = function (guess) {
         remainingGuessesSpan.innerText = `${remainingGuesses} guesses`;
     }
 };
-
+ 
 const checkIfWin = function () {
     if (word.toUpperCase() === wordInProgress.innerText) {
         message.classList.add("win");
